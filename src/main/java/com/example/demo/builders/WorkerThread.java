@@ -1,5 +1,6 @@
 package com.example.demo.builders;
 
+import com.example.demo.beverages.Beverage;
 import com.example.demo.beverages.Drink;
 import com.example.demo.beverages.Ingredient;
 import com.example.demo.exceptions.IngredientNotAvailableException;
@@ -31,7 +32,7 @@ public class WorkerThread implements Callable<String> {
 
     @Override
     public String call() {
-        Drink drink = drinkFactory.createDrink(name);
+        Beverage drink = drinkFactory.createDrink(name);
         List<Ingredient> ingredientList = new ArrayList<>();
         for(String ingredientName: ingredients.keySet()) {
             try {
@@ -48,10 +49,13 @@ public class WorkerThread implements Callable<String> {
             return getFailureMessage(e.getMessage());
         }
 
-        return getSuccessMessage();
+        for(Ingredient ingredient: ingredientList) {
+            drink = new Ingredient(drink, ingredient.getName(), ingredient.getQuantity());
+        }
+        return drink.getIngredients();
     }
 
-    private String getSuccessMessage() {
+    private String getSuccessMessage(String message) {
         return name + " is prepared, Yay!";
     }
 
