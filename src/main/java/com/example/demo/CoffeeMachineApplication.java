@@ -1,13 +1,19 @@
 package com.example.demo;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.example.demo.beverages.Beverage;
+import com.example.demo.beverages.drinks.GingerTea;
+import com.example.demo.beverages.ingrdients.GingerSyrupIngredient;
+import com.example.demo.beverages.ingrdients.HotMilkIngredient;
 
-@SpringBootApplication
+
 public class CoffeeMachineApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CoffeeMachineApplication.class, args);
+		Beverage gingerTea = new GingerTea();
+		gingerTea = new HotMilkIngredient(gingerTea);
+		gingerTea = new GingerSyrupIngredient(gingerTea);
+
+		System.out.println(gingerTea.getIngredients());
 	}
 
 }
