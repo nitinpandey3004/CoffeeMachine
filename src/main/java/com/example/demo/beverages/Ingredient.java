@@ -1,8 +1,6 @@
-package com.example.demo.beverages.ingrdients;
+package com.example.demo.beverages;
 
-import com.example.demo.beverages.Beverage;
-
-public class Ingredient  extends IngredientDecorator{
+public class Ingredient  extends IngredientDecorator {
     private String name;
     private Integer quantity;
     public Ingredient(Beverage beverage, String name, Integer quantity) {
@@ -13,6 +11,11 @@ public class Ingredient  extends IngredientDecorator{
 
     public Integer getQuantity()  {
         return quantity;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

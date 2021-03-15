@@ -1,21 +1,22 @@
 package com.example.demo.factories;
 
-import com.example.demo.beverages.drinks.Drink;
-import com.example.demo.beverages.drinks.HotTea;
-import com.example.demo.enums.DrinkType;
+import com.example.demo.beverages.Drink;
 import com.example.demo.exceptions.DrinkNotSupportedException;
 
 public class DrinkFactory {
 
-    public Drink createDrink(DrinkType drinkType) throws DrinkNotSupportedException {
+    public Drink createDrink(String drinkName) throws DrinkNotSupportedException {
         Drink drink = null;
-        switch (drinkType) {
-            case HotTea :
-                drink = new HotTea();
+        switch (drinkName) {
+            case "hot_tea" :
+            case "hot_coffee" :
+            case "black_tea" :
+            case "green_tea" :
+                drink = new Drink(drinkName);
                 break;
 
             default:
-                throw new DrinkNotSupportedException();
+                throw new DrinkNotSupportedException(drinkName + " is Not Supported");
         }
         return drink;
     }

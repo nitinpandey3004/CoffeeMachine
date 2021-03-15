@@ -1,24 +1,26 @@
 package com.example.demo.factories;
 
 import com.example.demo.beverages.Beverage;
-import com.example.demo.beverages.ingrdients.HotMilkIngredient;
-import com.example.demo.beverages.ingrdients.IngredientDecorator;
-import com.example.demo.enums.IngredientType;
-import com.example.demo.exceptions.IngredientNotSupportedException;
+import com.example.demo.beverages.Ingredient;
+import com.example.demo.exceptions.IngredientNotAvailableException;
 
 public class IngredientFactory {
 
-    public IngredientDecorator getIngredient(Beverage beverage, IngredientType ingredientType) throws IngredientNotSupportedException {
-        IngredientDecorator ingredientDecorator = null;
+    public Ingredient getIngredient(Beverage beverage, String ingredientName, Integer quantity) throws IngredientNotAvailableException {
+        Ingredient ingredient = null;
 
-        switch (ingredientType) {
-            case HotMilk :
-                ingredientDecorator = new HotMilkIngredient(beverage);
+        switch (ingredientName) {
+            case "hot_water" :
+            case "hot_milk" :
+            case "ginger_syrup" :
+            case "sugar_syrup" :
+            case "tea_leaves_syrup" :
+                ingredient = new Ingredient(beverage, ingredientName, quantity);
                 break;
             default:
-                throw new IngredientNotSupportedException();
+                throw new IngredientNotAvailableException(ingredientName + " is not available");
         }
 
-        return ingredientDecorator;
+        return ingredient;
     }
 }

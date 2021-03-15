@@ -1,4 +1,4 @@
-package com.example.demo.beverages.drinks;
+package com.example.demo.beverages;
 
 import com.example.demo.beverages.Beverage;
 

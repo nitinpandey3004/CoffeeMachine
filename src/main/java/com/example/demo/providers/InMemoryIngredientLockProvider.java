@@ -1,25 +1,24 @@
 package com.example.demo.providers;
 
-import com.example.demo.beverages.ingrdients.Ingredient;
-import com.example.demo.exceptions.IngredientNotPresentException;
+import com.example.demo.beverages.Ingredient;
+import com.example.demo.exceptions.IngredientNotSufficient;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class InMemoryIngredientLockProvider implements IngredientLockProvider{
 
-    Map<String, Integer> locks;
+    Map<String, Integer> resources;
 
-    public InMemoryIngredientLockProvider() {
-        locks =  new HashMap<>();
+    public InMemoryIngredientLockProvider(Map<String, Integer> resources) {
+        this.resources = resources;
     }
 
     @Override
-    synchronized public boolean lockIngredients(List<Ingredient> ingredients) throws IngredientNotPresentException {
+    synchronized public boolean lockIngredients(List<Ingredient> ingredients) throws IngredientNotSufficient {
         for(Ingredient ingredient: ingredients) {
             if(!isIngredientPresent(ingredient)) {
-                throw new IngredientNotPresentException();
+                throw new IngredientNotSufficient(ingredient.getName() + " is not sufficient");
             }
         }
         for(Ingredient ingredient: ingredients) {
@@ -29,14 +28,14 @@ public class InMemoryIngredientLockProvider implements IngredientLockProvider{
     }
 
     public void useIngredient(Ingredient ingredient) {
-        locks.put(ingredient.getName(), locks.get(ingredient.getName()) - ingredient.getQuantity());
+        resources.put(ingredient.getName(), resources.get(ingredient.getName()) - ingredient.getQuantity());
     }
 
     @Override
     public boolean isIngredientPresent(Ingredient ingredient) {
-        if(!locks.containsKey(ingredient.getName())) {
+        if(!resources.containsKey(ingredient.getName())) {
             return false;
         }
-        return locks.get(ingredient.getName()) > ingredient.getQuantity();
+        return resources.get(ingredient.getName()) >= ingredient.getQuantity();
     }
 }
