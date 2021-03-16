@@ -3,6 +3,7 @@ package com.example.demo.builders;
 import com.example.demo.beverages.Beverage;
 import com.example.demo.beverages.Drink;
 import com.example.demo.beverages.Ingredient;
+import com.example.demo.exceptions.DrinkNotSupportedException;
 import com.example.demo.exceptions.IngredientNotAvailableException;
 import com.example.demo.exceptions.IngredientNotSufficient;
 import com.example.demo.factories.DrinkFactory;
@@ -33,27 +34,32 @@ public class WorkerThread implements Callable<GenericResponse> {
 
     @Override
     public GenericResponse call() {
-        Beverage drink = drinkFactory.createDrink(name);
+        Beverage drink;
+        try {
+             drink = drinkFactory.createDrink(name);
+        } catch (DrinkNotSupportedException e) {
+            return new GenericResponse(false, "", e);
+        }
         List<Ingredient> ingredientList = new ArrayList<>();
         for(String ingredientName: ingredients.keySet()) {
             try {
                 Ingredient ingredient = ingredientFactory.getIngredient(drink, ingredientName, ingredients.get(ingredientName));
                 ingredientList.add(ingredient);
             } catch (IngredientNotAvailableException e) {
-                return new GenericResponse(false, "", e.getMessage());
+                return new GenericResponse(false, "", e);
             }
         }
 
         try {
             ingredientLockProvider.lockIngredients(ingredientList);
         } catch (IngredientNotSufficient e) {
-            return new GenericResponse(false, "", e.getMessage());
+            return new GenericResponse(false, "", e);
         }
 
         for(Ingredient ingredient: ingredientList) {
             drink = new Ingredient(drink, ingredient.getName(), ingredient.getQuantity());
         }
-        return new GenericResponse(true, drink.getIngredients(), "");
+        return new GenericResponse(true, drink.getIngredients(), null);
     }
 
     private String getSuccessMessage(String message) {

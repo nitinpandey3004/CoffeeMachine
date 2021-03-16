@@ -13,5 +13,5 @@ public class GenericResponse implements Serializable {
 
     private Boolean status;
     private String message;
-    private String error;
+    private Exception exception;
 }

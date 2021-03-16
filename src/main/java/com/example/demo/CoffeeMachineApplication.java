@@ -18,7 +18,7 @@ public class CoffeeMachineApplication {
 
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
-			JsonNode jsonNode = objectMapper.readTree(new File("src/main/resources/static/test.json"));
+			JsonNode jsonNode = objectMapper.readTree(new File("src/main/resources/static/sample.json"));
 			MachinePayload machinePayload = objectMapper.readValue(jsonNode.get("machine").toString(), MachinePayload.class);
 			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
 			Map<String , GenericResponse> data = beverageBuilder.build();
@@ -35,7 +35,7 @@ public class CoffeeMachineApplication {
 			if(genericResponse.getStatus()) {
 				System.out.println(drinkName + " is Prepared With " + genericResponse.getMessage());
 			} else {
-				System.out.println(drinkName + " Cannot Prepared Because " + genericResponse.getError());
+				System.out.println(drinkName + " Cannot Prepared Because " + genericResponse.getException().getMessage());
 			}
 		}
 	}
