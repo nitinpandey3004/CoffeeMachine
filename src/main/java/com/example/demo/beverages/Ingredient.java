@@ -20,6 +20,6 @@ public class Ingredient  extends IngredientDecorator {
 
     @Override
     public String getIngredients() {
-        return super.getIngredients() + ", " + name;
+        return super.getIngredients() + name + ", ";
     }
 }

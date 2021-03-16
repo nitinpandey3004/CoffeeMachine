@@ -16,6 +16,6 @@ public class Drink extends Beverage {
 
     @Override
     public String getIngredients() {
-        return name + " is prepared with ";
+        return "";
     }
 }

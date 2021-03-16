@@ -2,10 +2,12 @@ package com.example.demo.builders;
 
 import com.example.demo.factories.DrinkFactory;
 import com.example.demo.factories.IngredientFactory;
+import com.example.demo.payloads.GenericResponse;
 import com.example.demo.payloads.MachinePayload;
 import com.example.demo.providers.InMemoryIngredientLockProvider;
 import com.example.demo.providers.IngredientLockProvider;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -17,32 +19,30 @@ public class BeverageBuilder {
     DrinkFactory drinkFactory;
     IngredientFactory ingredientFactory;
     ExecutorService executorService;
-    public BeverageBuilder(MachinePayload machinePayload) throws ExecutionException, InterruptedException {
+    MachinePayload machinePayload;
+    public BeverageBuilder(MachinePayload machinePayload)  {
         drinkFactory = new DrinkFactory();
         ingredientFactory = new IngredientFactory();
+        this.machinePayload = machinePayload;
 
-        initializeExecutors(machinePayload.getOutlets().get("count_n"));
-        initializeResources(machinePayload.getTotal_items_quantity());
-
-        createBeverages(machinePayload.getBeverages());
+        executorService = Executors.newFixedThreadPool(machinePayload.getOutlets().get("count_n"));
+        ingredientLockProvider = new InMemoryIngredientLockProvider(machinePayload.getTotal_items_quantity());
     }
 
-    private void initializeExecutors(Integer n) {
-        executorService = Executors.newFixedThreadPool(n);
+    public Map<String , GenericResponse> build() throws ExecutionException, InterruptedException{
+        Map<String , GenericResponse> data = createBeverages(machinePayload.getBeverages());
+        executorService.shutdown();
+        return data;
     }
 
-    private void initializeResources(Map<String, Integer> totalItemsQuantity) {
-        ingredientLockProvider = new InMemoryIngredientLockProvider(totalItemsQuantity);
-    }
-
-    private void createBeverages(Map<String, Map<String, Integer>> beverages) throws ExecutionException, InterruptedException {
-
+    private Map<String , GenericResponse> createBeverages(Map<String, Map<String, Integer>> beverages) throws ExecutionException, InterruptedException {
+        Map<String , GenericResponse> data = new HashMap<>();
         for(String name: beverages.keySet()) {
             WorkerThread workerThread = new WorkerThread(name, beverages.get(name),
                     drinkFactory, ingredientFactory, ingredientLockProvider);
-            Future<String> future = executorService.submit(workerThread);
-            System.out.println(future.get());
+            Future<GenericResponse> future = executorService.submit(workerThread);
+            data.put(name, future.get());
         }
-        executorService.shutdown();
+        return data;
     }
 }
