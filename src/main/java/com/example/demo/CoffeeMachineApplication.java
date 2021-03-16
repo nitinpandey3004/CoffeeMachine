@@ -13,11 +13,6 @@ import java.util.concurrent.ExecutionException;
 public class CoffeeMachineApplication {
 
 	public static void main(String[] args) {
-//		Beverage gingerTea = new GingerTea();
-//		gingerTea = new HotMilkIngredient(gingerTea);
-//		gingerTea = new GingerSyrupIngredient(gingerTea);
-//
-//		System.out.println(gingerTea.getIngredients());
 
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
