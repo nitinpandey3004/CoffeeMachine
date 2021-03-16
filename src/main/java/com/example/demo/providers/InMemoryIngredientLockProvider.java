@@ -6,7 +6,10 @@ import com.example.demo.exceptions.IngredientNotSufficient;
 import java.util.List;
 import java.util.Map;
 
-public class InMemoryIngredientLockProvider implements IngredientLockProvider{
+/**
+ * Sample in memory implementation for IngredientLockProvider
+ */
+public class InMemoryIngredientLockProvider implements IngredientLockProvider {
 
     Map<String, Integer> resources;
 

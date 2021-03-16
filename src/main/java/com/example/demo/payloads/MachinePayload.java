@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.util.Map;
 
+/**
+ * MachinePayload is used to define Machine Initial Settings
+ */
 @Getter
 @Setter
 public class MachinePayload {

@@ -1,6 +1,9 @@
 package com.example.demo.beverages;
 
-public class Ingredient  extends IngredientDecorator {
+/**
+ * Ingredient is Supporting things in beverage
+ */
+public class Ingredient extends IngredientDecorator {
     private String name;
     private Integer quantity;
     public Ingredient(Beverage beverage, String name, Integer quantity) {

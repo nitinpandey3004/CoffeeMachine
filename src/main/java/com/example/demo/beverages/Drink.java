@@ -1,7 +1,9 @@
 package com.example.demo.beverages;
 
-import com.example.demo.beverages.Beverage;
-
+/**
+ * Drink is a base type of beverage
+ * This class is used to create base beverages
+ */
 public class Drink extends Beverage {
 
     private String name;

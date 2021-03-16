@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * GenericResponse is a response from BeverageBuilder
+ */
 @Getter
 @Setter
 @AllArgsConstructor

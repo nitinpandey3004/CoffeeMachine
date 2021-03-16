@@ -1,7 +1,7 @@
 package com.example.demo;
 
 
-import com.example.demo.builders.BeverageBuilder;
+import com.example.demo.builders.MachineBuilder;
 import com.example.demo.payloads.GenericResponse;
 import com.example.demo.payloads.MachinePayload;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,8 +20,8 @@ public class CoffeeMachineApplication {
 			ObjectMapper objectMapper = new ObjectMapper();
 			JsonNode jsonNode = objectMapper.readTree(new File("src/main/resources/static/sample.json"));
 			MachinePayload machinePayload = objectMapper.readValue(jsonNode.get("machine").toString(), MachinePayload.class);
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 			printData(data);
 		} catch (InterruptedException | ExecutionException | IOException e) {
 			e.printStackTrace();

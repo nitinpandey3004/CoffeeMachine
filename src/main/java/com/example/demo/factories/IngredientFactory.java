@@ -4,6 +4,9 @@ import com.example.demo.beverages.Beverage;
 import com.example.demo.beverages.Ingredient;
 import com.example.demo.exceptions.IngredientNotAvailableException;
 
+/**
+ * IngredientFactory is used to create different types Ingredients
+ */
 public class IngredientFactory {
 
     public Ingredient getIngredient(Beverage beverage, String ingredientName, Integer quantity) throws IngredientNotAvailableException {

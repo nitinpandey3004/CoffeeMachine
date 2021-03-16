@@ -3,6 +3,9 @@ package com.example.demo.factories;
 import com.example.demo.beverages.Drink;
 import com.example.demo.exceptions.DrinkNotSupportedException;
 
+/**
+ * DrinkFactory is used to create base Drinks for beverages
+ */
 public class DrinkFactory {
 
     public Drink createDrink(String drinkName) throws DrinkNotSupportedException {

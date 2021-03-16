@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.builders.BeverageBuilder;
+import com.example.demo.builders.MachineBuilder;
 import com.example.demo.payloads.GenericResponse;
 import com.example.demo.payloads.MachinePayload;
 import org.junit.jupiter.api.Assertions;
@@ -41,8 +41,8 @@ class CoffeeMachineApplicationTests {
 				}});
 			}});
 
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 			Assertions.assertTrue(data.get("hot_tea").getStatus());
 		}
 
@@ -70,8 +70,8 @@ class CoffeeMachineApplicationTests {
 				}});
 			}});
 
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 			Assertions.assertTrue(data.get("hot_tea").getStatus());
 		}
 
@@ -99,8 +99,8 @@ class CoffeeMachineApplicationTests {
 				}});
 			}});
 
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 			Assertions.assertFalse(data.get("hot_tea").getStatus());
 			Assertions.assertEquals(data.get("hot_tea").getException().getMessage(), "hot_water is Not Sufficient");
 		}
@@ -129,8 +129,8 @@ class CoffeeMachineApplicationTests {
 				}});
 			}});
 
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 			Assertions.assertFalse(data.get("green_tea").getStatus());
 			Assertions.assertEquals(data.get("green_tea").getException().getMessage(), "green_mixture is Not Available");
 		}
@@ -159,8 +159,8 @@ class CoffeeMachineApplicationTests {
 				}});
 			}});
 
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 			Assertions.assertFalse(data.get("special_green_tea").getStatus());
 			Assertions.assertEquals(data.get("special_green_tea").getException().getMessage(), "special_green_tea is Not Supported");
 		}
@@ -201,8 +201,8 @@ class CoffeeMachineApplicationTests {
 				}});
 			}});
 
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 			Assertions.assertTrue(data.get("hot_tea").getStatus());
 			Assertions.assertTrue(data.get("hot_coffee").getStatus());
 		}
@@ -238,8 +238,8 @@ class CoffeeMachineApplicationTests {
 				}});
 			}});
 
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 			Assertions.assertTrue(data.get("hot_tea").getStatus());
 			Assertions.assertTrue(data.get("hot_coffee").getStatus());
 		}
@@ -275,8 +275,8 @@ class CoffeeMachineApplicationTests {
 				}});
 			}});
 
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 
 			int trueStatusCount = 0;
 			for(String drinkName: data.keySet()) {
@@ -320,8 +320,8 @@ class CoffeeMachineApplicationTests {
 				}});
 			}});
 
-			BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
-			Map<String , GenericResponse> data = beverageBuilder.build();
+			MachineBuilder machineBuilder = new MachineBuilder(machinePayload);
+			Map<String , GenericResponse> data = machineBuilder.build();
 
 			int trueStatusCount = 0;
 			for(String drinkName: data.keySet()) {
