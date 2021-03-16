@@ -1,0 +1,5 @@
+FROM maven:3.6.3-openjdk-15-slim AS builder
+COPY pom.xml .
+RUN mvn de.qaware.maven:go-offline-maven-plugin:1.2.1:resolve-dependencies
+COPY . .
+CMD mvn test
