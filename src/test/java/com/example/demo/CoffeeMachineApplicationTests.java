@@ -102,6 +102,7 @@ class CoffeeMachineApplicationTests {
 		BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
 		Map<String , GenericResponse> data = beverageBuilder.build();
 		Assertions.assertFalse(data.get("hot_tea").getStatus());
+		Assertions.assertEquals(data.get("hot_tea").getException().getMessage(), "hot_water is Not Sufficient");
 	}
 
 	@Test
@@ -131,6 +132,7 @@ class CoffeeMachineApplicationTests {
 		BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
 		Map<String , GenericResponse> data = beverageBuilder.build();
 		Assertions.assertFalse(data.get("green_tea").getStatus());
+		Assertions.assertEquals(data.get("green_tea").getException().getMessage(), "green_mixture is Not Available");
 	}
 
 	@Test
@@ -160,6 +162,7 @@ class CoffeeMachineApplicationTests {
 		BeverageBuilder beverageBuilder = new BeverageBuilder(machinePayload);
 		Map<String , GenericResponse> data = beverageBuilder.build();
 		Assertions.assertFalse(data.get("special_green_tea").getStatus());
+		Assertions.assertEquals(data.get("special_green_tea").getException().getMessage(), "special_green_tea is Not Supported");
 	}
 
 }

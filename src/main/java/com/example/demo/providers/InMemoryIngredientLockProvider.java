@@ -18,7 +18,7 @@ public class InMemoryIngredientLockProvider implements IngredientLockProvider{
     synchronized public boolean lockIngredients(List<Ingredient> ingredients) throws IngredientNotSufficient {
         for(Ingredient ingredient: ingredients) {
             if(!isIngredientPresent(ingredient)) {
-                throw new IngredientNotSufficient(ingredient.getName() + " is not sufficient");
+                throw new IngredientNotSufficient(ingredient.getName() + " is Not Sufficient");
             }
         }
         for(Ingredient ingredient: ingredients) {

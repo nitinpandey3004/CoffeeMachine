@@ -18,7 +18,7 @@ public class IngredientFactory {
                 ingredient = new Ingredient(beverage, ingredientName, quantity);
                 break;
             default:
-                throw new IngredientNotAvailableException(ingredientName + " is not available");
+                throw new IngredientNotAvailableException(ingredientName + " is Not Available");
         }
 
         return ingredient;
