@@ -1,15 +1,13 @@
 package demo.providers;
 
+import com.google.common.collect.ImmutableList;
 import demo.exceptions.SeatTemporaryUnavailableException;
 import demo.model.Seat;
 import demo.model.SeatLock;
 import demo.model.Show;
 import lombok.NonNull;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InMemorySeatLockProvider implements SeatLockProvider{
 
@@ -35,7 +33,7 @@ public class InMemorySeatLockProvider implements SeatLockProvider{
 
     @Override
     synchronized public void lockSeats(@NonNull final Show show, @NonNull final List<Seat> seats,
-                                       @NonNull final String user) throws SeatTemporaryUnavailableException {
+                                       @NonNull final String user) {
 
         for (Seat seat: seats) {
             if (isSeatLocked(show, seat)) {
@@ -71,6 +69,17 @@ public class InMemorySeatLockProvider implements SeatLockProvider{
 
     @Override
     public List<Seat> getLockedSeats(Show show) {
-        return null;
+        if (!locks.containsKey(show)) {
+            return ImmutableList.of();
+        }
+        final List<Seat> lockedSeats = new ArrayList<>();
+
+        for (Seat seat : locks.get(show).keySet()) {
+            if (isSeatLocked(show, seat)) {
+                lockedSeats.add(seat);
+            }
+        }
+
+        return lockedSeats;
     }
 }
