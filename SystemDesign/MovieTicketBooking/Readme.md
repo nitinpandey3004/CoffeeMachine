@@ -8,3 +8,6 @@
 - demo.User
 - demo.Seat
 - Locking
+
+## Reference:
+https://github.com/anomaly2104/ticket-booking-low-level-system-design
